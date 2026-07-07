@@ -1,0 +1,131 @@
+Handson5 - Angular Reactive Forms
+Task 1: Build a Reactive Form with FormBuilder
+
+Goal: Create a Reactive Form using FormBuilder.
+
+1. Generate Component
+
+ng g c pages/reactive-enrollment-form
+
+Add Route
+
+path:'enroll-reactive'
+
+2. Import ReactiveFormsModule.
+
+3. Build Form
+
+constructor(private fb:FormBuilder){}
+
+ngOnInit(){
+ this.enrollForm=this.fb.group({
+ studentName:['',[Validators.required,Validators.minLength(3)]],
+ studentEmail:['',[Validators.required,Validators.email]],
+ courseId:[null,Validators.required],
+ preferredSemester:['Odd',Validators.required],
+ agreeToTerms:[false,Validators.requiredTrue]
+ });
+}
+
+4. HTML
+
+<form [formGroup]="enrollForm">
+
+<input formControlName="studentName">
+
+<input formControlName="studentEmail">
+
+<input formControlName="courseId">
+
+<select formControlName="preferredSemester">
+<option>Odd</option>
+<option>Even</option>
+</select>
+
+<input type="checkbox"
+formControlName="agreeToTerms">
+
+<button
+[disabled]="enrollForm.invalid">
+Submit
+</button>
+
+</form>
+
+5. Submit
+
+onSubmit(){
+ console.log(this.enrollForm.value);
+ console.log(this.enrollForm.getRawValue());
+}
+
+Difference
+
+value -> excludes disabled controls
+
+getRawValue() -> includes disabled controls
+
+Expected:
+Reactive form works successfully.
+
+Task 2: Custom Validators & FormArray
+
+Custom Validator
+
+noCourseCode(control:AbstractControl){
+ return control.value?.startsWith('XX')
+ ? {noCourseCode:true}
+ : null;
+}
+
+Display Error
+
+<span *ngIf="enrollForm.get('courseId')?.errors?.['noCourseCode']">
+Course code starting with XX is not allowed.
+</span>
+
+Async Validator
+
+simulateEmailCheck(control:AbstractControl){
+ return new Promise(resolve=>{
+  setTimeout(()=>{
+   if(control.value=='test@example.com')
+      resolve({emailTaken:true});
+   else
+      resolve(null);
+  },800);
+ });
+}
+
+Apply
+
+studentEmail:['',
+[Validators.required,Validators.email],
+[this.simulateEmailCheck]]
+
+FormArray
+
+additionalCourses=this.fb.array([]);
+
+addCourse(){
+ this.additionalCourses.push(
+   this.fb.control('')
+ );
+}
+
+removeCourse(i:number){
+ this.additionalCourses.removeAt(i);
+}
+
+Getter
+
+get additionalCoursesList(){
+ return this.enrollForm.get('additionalCourses') as FormArray;
+}
+
+Expected Output
+
+• XX101 shows validation error.
+• test@example.com shows Email Taken after 800ms.
+• Additional courses can be added and removed dynamically.
+
