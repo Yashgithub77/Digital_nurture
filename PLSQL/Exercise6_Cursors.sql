@@ -1,0 +1,5 @@
+DECLARE CURSOR c IS SELECT * FROM Transactions WHERE TRUNC(TransactionDate,'MM')=TRUNC(SYSDATE,'MM'); BEGIN FOR r IN c LOOP DBMS_OUTPUT.PUT_LINE(r.TransactionID||' '||r.Amount); END LOOP; END;/
+
+DECLARE CURSOR c IS SELECT AccountID FROM Accounts; BEGIN FOR r IN c LOOP UPDATE Accounts SET Balance=Balance-100 WHERE AccountID=r.AccountID; END LOOP; END;/
+
+DECLARE CURSOR c IS SELECT LoanID FROM Loans; BEGIN FOR r IN c LOOP UPDATE Loans SET InterestRate=InterestRate+0.5 WHERE LoanID=r.LoanID; END LOOP; END;/

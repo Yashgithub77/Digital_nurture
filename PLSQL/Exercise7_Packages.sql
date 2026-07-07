@@ -1,0 +1,4 @@
+CREATE OR REPLACE PACKAGE CustomerManagement IS PROCEDURE AddCustomer(p_id NUMBER,p_name VARCHAR2,p_dob DATE,p_bal NUMBER); PROCEDURE UpdateCustomer(p_id NUMBER,p_bal NUMBER); FUNCTION GetCustomerBalance(p_id NUMBER) RETURN NUMBER; END;/
+CREATE OR REPLACE PACKAGE BODY CustomerManagement IS PROCEDURE AddCustomer(p_id NUMBER,p_name VARCHAR2,p_dob DATE,p_bal NUMBER) IS BEGIN INSERT INTO Customers VALUES(p_id,p_name,p_dob,p_bal,SYSDATE); END; PROCEDURE UpdateCustomer(p_id NUMBER,p_bal NUMBER) IS BEGIN UPDATE Customers SET Balance=p_bal WHERE CustomerID=p_id; END; FUNCTION GetCustomerBalance(p_id NUMBER) RETURN NUMBER IS b NUMBER; BEGIN SELECT Balance INTO b FROM Customers WHERE CustomerID=p_id; RETURN b; END; END;/
+
+-- Similar package specs can be created for EmployeeManagement and AccountOperations following the same pattern.
