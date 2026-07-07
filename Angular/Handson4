@@ -1,0 +1,123 @@
+Handson4 - Angular Template Driven Forms
+Task 1: Build the Enrollment Request Form
+
+Goal: Create a template-driven form using ngModel.
+
+1. Generate Component
+ng g c pages/enrollment-form
+
+Add route:
+path:'enroll', component:EnrollmentFormComponent
+
+2. enrollment-form.component.html
+
+<form #enrollForm="ngForm" (ngSubmit)="onSubmit(enrollForm)">
+
+<input type="text"
+name="studentName"
+[(ngModel)]="studentName"
+placeholder="Student Name">
+
+<input type="email"
+name="studentEmail"
+[(ngModel)]="studentEmail"
+placeholder="Email">
+
+<input type="number"
+name="courseId"
+[(ngModel)]="courseId"
+placeholder="Course ID">
+
+<select
+name="preferredSemester"
+[(ngModel)]="preferredSemester">
+<option>Odd</option>
+<option>Even</option>
+</select>
+
+<label>
+<input type="checkbox"
+name="agreeToTerms"
+[(ngModel)]="agreeToTerms">
+Agree to Terms
+</label>
+
+<button type="submit"
+[disabled]="enrollForm.invalid">
+Submit
+</button>
+
+</form>
+
+3. enrollment-form.component.ts
+
+onSubmit(form:any){
+ console.log(form.value);
+ console.log(form.valid);
+}
+
+Expected:
+• Form submits successfully.
+• Console displays form values.
+• Submit button disabled when form is invalid.
+
+Task 2: Validation and Error Messages
+
+Validation
+
+Student Name:
+required
+minlength="3"
+
+Email:
+required
+email
+
+Course ID:
+required
+
+Agree To Terms:
+required
+
+Error Messages
+
+<span *ngIf="nameCtrl.touched && nameCtrl.errors?.['required']">
+Name is required
+</span>
+
+<span *ngIf="nameCtrl.touched && nameCtrl.errors?.['minlength']">
+Name must be at least 3 characters
+</span>
+
+CSS
+
+.ng-invalid.ng-touched{
+ border:1px solid red;
+}
+
+.ng-valid.ng-touched{
+ border:1px solid green;
+}
+
+Success Message
+
+<div *ngIf="submitted">
+Enrollment request submitted successfully!
+</div>
+
+Reset Button
+
+<button
+type="button"
+(click)="enrollForm.resetForm()">
+Reset
+</button>
+
+Expected Output
+
+• Validation messages appear.
+• Green border for valid fields.
+• Red border for invalid fields.
+• Success message after submit.
+• Reset clears all fields.
+
