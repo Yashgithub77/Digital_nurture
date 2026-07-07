@@ -1,0 +1,84 @@
+Handson2 - Angular Binding Types & Lifecycle Hooks
+Task 1: All Four Binding Types
+Goal: Practice interpolation, property binding, event binding and two-way binding.
+
+1. In HomeComponent, declare:
+portalName = 'Student Course Portal';
+
+Template:
+<h1>{{ portalName }}</h1>
+
+2. Property Binding
+isPortalActive = true;
+
+<button [disabled]="!isPortalActive">Enroll Now</button>
+
+3. Event Binding
+message = '';
+
+onEnrollClick(){
+  this.message = 'Enrollment opened!';
+}
+
+<button (click)="onEnrollClick()">Enroll Now</button>
+<p>{{ message }}</p>
+
+4. Two-Way Binding
+Import FormsModule.
+
+searchTerm = '';
+
+<input [(ngModel)]="searchTerm">
+<p>Searching for: {{ searchTerm }}</p>
+
+5. Difference
+[property] : One-way binding (Component → DOM)
+[(ngModel)] : Two-way binding (Component ↔ DOM)
+
+Expected Output:
+• Typing updates 'Searching for' instantly.
+• Clicking Enroll Now shows 'Enrollment opened!'.
+• Button is enabled/disabled using isPortalActive.
+
+Task 2: Lifecycle Hooks
+Goal: Implement Angular lifecycle hooks.
+
+1. Implement ngOnInit
+
+export class HomeComponent implements OnInit{
+
+  ngOnInit(){
+    console.log('HomeComponent initialised – courses loaded');
+  }
+
+}
+
+2. Implement ngOnDestroy
+
+export class HomeComponent implements OnDestroy{
+
+  ngOnDestroy(){
+    console.log('HomeComponent destroyed');
+  }
+
+}
+
+3. Generate Course Card Component
+
+ng g c components/course-card
+
+4. Implement ngOnChanges
+
+@Input() course:any;
+
+ngOnChanges(changes: SimpleChanges){
+ console.log(changes);
+}
+
+5. Render three CourseCard components inside CourseListComponent with different hardcoded courses.
+
+Expected Output:
+• ngOnInit fires when HomeComponent loads.
+• ngOnDestroy fires when leaving the page.
+• ngOnChanges logs changes whenever @Input() value changes.
+
