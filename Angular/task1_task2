@@ -1,0 +1,61 @@
+Angular Assignment - Task 1 & Task 2
+Task 1: Scaffold and Explore the Angular Project
+
+Step 1: Create Angular Project
+•	npm install -g @angular/cli
+•	ng version
+•	ng new student-course-portal --routing --style=css
+•	cd student-course-portal
+•	code .
+Step 2: notes.txt Content
+angular.json - Project configuration.
+tsconfig.json - TypeScript compiler configuration.
+tsconfig.app.json - App-specific TypeScript settings.
+package.json - Project metadata, dependencies and scripts.
+src/main.ts - Entry point of Angular app.
+src/app/app.config.ts - Application-wide configuration.
+src/app/app.component.ts - Root component.
+src/index.html - Main HTML page.
+Step 3: Run Project
+Command:
+ng serve
+Open http://localhost:4200
+Step 4: Build Project
+Command:
+ng build
+Compiled code is mainly inside dist/browser/main.js
+Step 5: Budgets
+In angular.json:
+maximumWarning - Shows warning if bundle exceeds limit.
+maximumError - Build fails if bundle exceeds limit.
+
+
+
+Task 2: Create Components
+Generate components:
+ng g c components/header
+ng g c pages/home
+ng g c pages/course-list
+ng g c pages/student-profile
+header.component.html
+<nav>
+  <h2>Student Course Portal</h2>
+  <a routerLink="/">Home</a>
+  <a routerLink="/courses">Courses</a>
+  <a routerLink="/profile">Profile</a>
+</nav>
+<hr>
+home.component.html
+<h1>Welcome to Student Course Portal</h1>
+<p>This portal helps students manage their courses and profiles.</p>
+<div>
+<p><strong>Courses Available:</strong> 12</p>
+<p><strong>Enrolled:</strong> 3</p>
+<p><strong>GPA:</strong> 3.8</p>
+</div>
+app.component.html
+<app-header></app-header>
+<router-outlet></router-outlet>
+Run
+ng serve
+Visit: http://localhost:4200
