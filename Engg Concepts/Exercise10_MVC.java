@@ -1,0 +1,2 @@
+class Student{String name="Tom";}class View{void show(Student s){System.out.println(s.name);}}
+public class Exercise10_MVC{public static void main(String[]a){Student s=new Student();new View().show(s);}}

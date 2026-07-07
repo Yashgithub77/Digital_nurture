@@ -1,0 +1,2 @@
+class Computer{String cpu,ram;private Computer(Builder b){cpu=b.cpu;ram=b.ram;}static class Builder{String cpu,ram;Builder cpu(String c){cpu=c;return this;}Builder ram(String r){ram=r;return this;}Computer build(){return new Computer(this);}}}
+public class Exercise3_Builder{public static void main(String[]a){Computer c=new Computer.Builder().cpu("i5").ram("8GB").build();System.out.println(c.cpu);}}

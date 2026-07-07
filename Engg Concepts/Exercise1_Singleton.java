@@ -1,0 +1,2 @@
+class Logger{private static Logger obj=new Logger();private Logger(){}public static Logger getInstance(){return obj;}}
+public class Exercise1_Singleton{public static void main(String[]a){System.out.println(Logger.getInstance()==Logger.getInstance());}}
