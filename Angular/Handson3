@@ -1,0 +1,108 @@
+Handson3 - Angular Directives and Pipes
+Task 1: Structural Directives
+
+Goal: Control DOM using *ngIf, *ngFor and *ngSwitch.
+
+1. HomeComponent/CourseListComponent
+isLoading = true;
+
+ngOnInit(){
+  setTimeout(()=>{ this.isLoading=false; },1500);
+}
+
+Template:
+<p *ngIf="isLoading">Loading courses...</p>
+
+<ng-template #noCourses>
+  <p>No courses available.</p>
+</ng-template>
+
+<div *ngIf="courses.length; else noCourses">
+  <app-course-card
+      *ngFor="let course of courses; let i=index; trackBy: trackByCourseId">
+  </app-course-card>
+</div>
+
+trackByCourseId(index:number,course:any){
+  return course.id;
+}
+
+Status:
+<div [ngSwitch]="course.gradeStatus">
+ <span *ngSwitchCase="'passed'">Passed</span>
+ <span *ngSwitchCase="'failed'">Failed</span>
+ <span *ngSwitchDefault>Pending</span>
+</div>
+
+Expected:
+• Loading message for 1.5 sec
+• Courses displayed using *ngFor
+• ngSwitch shows Passed/Failed/Pending
+• Empty list shows 'No courses available.'
+
+Task 2: Attribute Directives (ngClass & ngStyle)
+
+CourseCardComponent
+
+isExpanded=false;
+
+<div
+[ngClass]="cardClasses"
+[ngStyle]="{'border-color': course.gradeStatus=='passed'?'green':
+course.gradeStatus=='failed'?'red':'gray'}">
+
+<button (click)="isExpanded=!isExpanded">
+Show Details
+</button>
+
+</div>
+
+get cardClasses(){
+ return{
+   'card-enrolled':course.enrolled,
+   'card-full':course.credits>=4,
+   'expanded':this.isExpanded
+ };
+}
+
+Expected:
+• CSS classes applied dynamically
+• Border color changes with grade
+• Expanded class toggles on button click
+
+Task 3: Custom Directive and Custom Pipe
+
+Generate:
+
+ng g directive directives/highlight
+ng g pipe pipes/credit-label
+
+Highlight Directive
+
+@Input() appHighlight='yellow';
+
+@HostListener('mouseenter')
+onEnter(){}
+
+@HostListener('mouseleave')
+onLeave(){}
+
+Usage
+
+<app-course-card appHighlight="lightblue"></app-course-card>
+
+CreditLabel Pipe
+
+1 -> 1 Credit
+2 -> 2 Credits
+null/0 -> No Credits
+
+Usage
+
+{{ course.credits | creditLabel }}
+
+Expected:
+• Hover highlights the course card
+• Pipe displays readable credit labels
+• Custom color works through input binding
+
