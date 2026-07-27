@@ -1,0 +1,2 @@
+import {useParams} from 'react-router-dom';import data from './TrainersMock';
+export default function(){const {id}=useParams();const t=data.find(x=>x.id==id);return <div><h2>{t.name}</h2><p>{t.email}</p><p>{t.phone}</p><p>{t.technology}</p><p>{t.skills}</p></div>}

@@ -1,0 +1,1 @@
+export default ()=> <h2>Welcome to Trainers Application</h2>;

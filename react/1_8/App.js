@@ -1,0 +1,3 @@
+import {BrowserRouter,Routes,Route,Link,Navigate} from 'react-router-dom';
+import Home from './Home';import TrainerList from './TrainerList';import TrainerDetails from './TrainerDetails';
+export default ()=> <BrowserRouter><nav><Link to='/'>Home</Link> | <Link to='/trainers'>Trainers</Link></nav><Routes><Route path='/' element={<Navigate to='/home'/>}/><Route path='/home' element={<Home/>}/><Route path='/trainers' element={<TrainerList/>}/><Route path='/trainers/:id' element={<TrainerDetails/>}/></Routes></BrowserRouter>;

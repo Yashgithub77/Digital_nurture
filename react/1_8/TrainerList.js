@@ -1,0 +1,2 @@
+import {Link} from 'react-router-dom';import data from './TrainersMock';
+export default ()=> <ul>{data.map(t=><li key={t.id}><Link to={'/trainers/'+t.id}>{t.name}</Link></li>)}</ul>;
